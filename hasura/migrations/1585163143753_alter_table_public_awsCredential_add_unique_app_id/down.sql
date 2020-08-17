@@ -1,0 +1,1 @@
+alter table "public"."awsCredential" drop constraint "awsCredential_app_id_key";

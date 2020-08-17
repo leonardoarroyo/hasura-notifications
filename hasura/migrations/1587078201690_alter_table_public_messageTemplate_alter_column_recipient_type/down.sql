@@ -1,0 +1,1 @@
+ALTER TABLE "public"."messageTemplate" ALTER COLUMN "recipient_type" TYPE character varying;ALTER TABLE "public"."messageTemplate" ALTER COLUMN "recipient_type" DROP NOT NULL;

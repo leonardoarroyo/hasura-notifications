@@ -1,0 +1,35 @@
+name: Deploy Node API
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [master]
+    paths: ["api/**/*", ".github/workflows/deploy-node-api.yml", "Dockerfile"]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Runs a single command using the runners shell
+
+      - name: Dokku Deploy action
+        uses: idoberko2/dokku-deploy-github-action@v1
+        with:
+          # The ssh private key to the dokku instance. WARNING: use a secret! Do not pass a plain text value!
+          ssh-private-key: ${{ secrets.DOKKU_PRIVATE_SSH_KEY }}
+          # The user to use for ssh (Default: dokku)
+          dokku-host: 34.95.208.129
+          # The dokku app name
+          app-name: notifications-api
+          git-push-flags: --force

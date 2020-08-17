@@ -1,0 +1,1 @@
+ALTER TABLE "public"."notificationVia" ALTER COLUMN "via" TYPE character varying;ALTER TABLE "public"."notificationVia" DROP CONSTRAINT "notificationVia_via_key";

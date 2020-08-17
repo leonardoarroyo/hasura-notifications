@@ -1,0 +1,1 @@
+ALTER TABLE "public"."notificationTrigger" ADD COLUMN "recipient_type" varchar NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE "public"."messageTemplate" ADD COLUMN "recipient_type" varchar NULL;

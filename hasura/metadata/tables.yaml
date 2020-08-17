@@ -1,0 +1,316 @@
+- table:
+    schema: public
+    name: app
+- table:
+    schema: public
+    name: awsCredential
+- table:
+    schema: public
+    name: messageTemplate
+  object_relationships:
+  - name: kind
+    using:
+      foreign_key_constraint_on: kind_id
+  array_relationships:
+  - name: notifications
+    using:
+      foreign_key_constraint_on:
+        column: message_template_id
+        table:
+          schema: public
+          name: notification
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        kind:
+          app_id:
+            _eq: X-Hasura-App-Pk
+      set:
+        app_id: x-hasura-App-Pk
+      columns:
+      - data
+      - kind_id
+      - locale
+      - recipient_type
+      - value
+      - version
+      - via
+  select_permissions:
+  - role: externalUser
+    permission:
+      columns:
+      - recipient_type
+      - value
+      filter:
+        notifications:
+          _and:
+          - app_id:
+              _eq: X-Hasura-App-Pk
+          - recipient:
+              _in: X-Hasura-Recipient-Ids
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - data
+      - id
+      - kind_id
+      - locale
+      - recipient_type
+      - updated_at
+      - value
+      - version
+      - via
+      filter:
+        app_id:
+          _eq: X-Hasura-App-Pk
+- table:
+    schema: public
+    name: notification
+  object_relationships:
+  - name: kind
+    using:
+      foreign_key_constraint_on: kind_id
+  - name: message_template
+    using:
+      foreign_key_constraint_on: message_template_id
+  array_relationships:
+  - name: views
+    using:
+      foreign_key_constraint_on:
+        column: notification_id
+        table:
+          schema: public
+          name: notificationViewed
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        _and:
+        - message_template:
+            app_id:
+              _eq: X-Hasura-App-Pk
+        - kind:
+            app_id:
+              _eq: X-Hasura-App-Pk
+      set:
+        app_id: x-hasura-App-Pk
+      columns:
+      - data
+      - kind_id
+      - message_template_id
+      - meta
+      - recipient
+      - scheduled_to
+      - via
+  select_permissions:
+  - role: externalUser
+    permission:
+      columns:
+      - created_at
+      - data
+      - id
+      - message_template_id
+      - meta
+      - recipient
+      - scheduled_to
+      - via
+      filter:
+        _and:
+        - recipient:
+            _in: X-Hasura-Recipient-Ids
+        - app_id:
+            _eq: X-Hasura-App-Pk
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - data
+      - id
+      - kind_id
+      - message_template_id
+      - meta
+      - recipient
+      - scheduled_to
+      - via
+      filter:
+        _and:
+        - message_template:
+            app_id:
+              _eq: X-Hasura-App-Pk
+        - kind:
+            app_id:
+              _eq: X-Hasura-App-Pk
+  event_triggers:
+  - name: insert_notification
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+    retry_conf:
+      num_retries: 3
+      interval_sec: 10
+      timeout_sec: 60
+    webhook: http://api:4000/events/insert_notification
+- table:
+    schema: public
+    name: notificationKind
+  insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        app_id: x-hasura-App-Pk
+      columns:
+      - value
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - app_id
+      - id
+      - value
+      filter:
+        app_id:
+          _eq: X-Hasura-App-Pk
+- table:
+    schema: public
+    name: notificationLog
+  object_relationships:
+  - name: notification
+    using:
+      foreign_key_constraint_on: notification_id
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - data
+      - notification_id
+      - status
+      filter: {}
+- table:
+    schema: public
+    name: notificationTrigger
+  object_relationships:
+  - name: app
+    using:
+      foreign_key_constraint_on: app_id
+  - name: kind
+    using:
+      foreign_key_constraint_on: kind_id
+  - name: message_template
+    using:
+      foreign_key_constraint_on: message_template_id
+  insert_permissions:
+  - role: user
+    permission:
+      check:
+        _and:
+        - app:
+            id:
+              _eq: X-Hasura-App-Pk
+        - kind:
+            app_id:
+              _eq: X-Hasura-App-Pk
+        - message_template:
+            app_id:
+              _eq: X-Hasura-App-Pk
+      set:
+        app_id: x-hasura-App-Pk
+      columns:
+      - kind_id
+      - message_template_id
+      - recipient_type
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - id
+      - kind_id
+      - message_template_id
+      - recipient_type
+      filter:
+        app_id:
+          _eq: X-Hasura-App-Pk
+  update_permissions:
+  - role: user
+    permission:
+      columns:
+      - kind_id
+      - message_template_id
+      - recipient_type
+      filter:
+        _and:
+        - app:
+            id:
+              _eq: X-Hasura-App-Pk
+        - kind:
+            app_id:
+              _eq: X-Hasura-App-Pk
+        - message_template:
+            app_id:
+              _eq: X-Hasura-App-Pk
+      check: null
+  event_triggers:
+  - name: upsert_notificationTrigger
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+      update:
+        columns:
+        - app_id
+        - id
+        - message_template_id
+        - created_at
+        - recipient_type
+    retry_conf:
+      num_retries: 0
+      interval_sec: 10
+      timeout_sec: 60
+    webhook: http://api:4000/events/upsert_notificationTrigger
+- table:
+    schema: public
+    name: notificationVia
+  is_enum: true
+- table:
+    schema: public
+    name: notificationViewed
+  object_relationships:
+  - name: notification
+    using:
+      foreign_key_constraint_on: notification_id
+  insert_permissions:
+  - role: externalUser
+    permission:
+      check:
+        _and:
+        - notification:
+            _and:
+            - recipient:
+                _in: X-Hasura-Recipient-Ids
+            - app_id:
+                _eq: X-Hasura-App-Pk
+      set:
+        ref: x-hasura-External-User-Id
+      columns:
+      - notification_id
+      - ref
+      backend_only: false
+  select_permissions:
+  - role: externalUser
+    permission:
+      columns:
+      - notification_id
+      - ref
+      - viewed_at
+      filter:
+        _and:
+        - ref:
+            _in: X-Hasura-Recipient-Ids
+        - notification:
+            app_id:
+              _eq: X-Hasura-App-Pk

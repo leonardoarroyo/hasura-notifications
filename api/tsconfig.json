@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "allowJs": false,
+    "sourceMap": true,
+    "outDir": "dist",
+    "strict": true,
+    "lib": ["esnext"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["*"]
+    },
+    "typeRoots" : ["./node_modules/@types", "./src/types"]
+  }
+}

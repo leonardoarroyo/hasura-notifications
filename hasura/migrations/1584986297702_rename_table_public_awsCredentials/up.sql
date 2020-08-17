@@ -1,0 +1,1 @@
+alter table "public"."awsCredentials" rename to "awsCredential";

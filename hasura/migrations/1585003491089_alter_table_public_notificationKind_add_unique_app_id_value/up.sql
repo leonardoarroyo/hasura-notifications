@@ -1,0 +1,1 @@
+alter table "public"."notificationKind" add constraint "notificationKind_app_id_value_key" unique ("app_id", "value");

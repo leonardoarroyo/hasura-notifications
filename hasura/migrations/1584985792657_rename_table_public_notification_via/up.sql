@@ -1,0 +1,1 @@
+alter table "public"."notification_via" rename to "notificationVia";

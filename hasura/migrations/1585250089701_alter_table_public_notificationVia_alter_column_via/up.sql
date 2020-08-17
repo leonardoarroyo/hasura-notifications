@@ -1,0 +1,1 @@
+ALTER TABLE "public"."notificationVia" ALTER COLUMN "via" TYPE text;ALTER TABLE "public"."notificationVia" ADD CONSTRAINT "notificationVia_via_key" UNIQUE ("via");

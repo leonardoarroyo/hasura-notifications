@@ -1,0 +1,1 @@
+CREATE TABLE "public"."notificationKind"("id" bigserial NOT NULL, "app_id" bigint NOT NULL, "value" varchar NOT NULL, PRIMARY KEY ("id") );

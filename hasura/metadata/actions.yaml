@@ -1,0 +1,65 @@
+actions:
+- name: create_messageTemplate
+  definition:
+    kind: synchronous
+    handler: http://api:4000/actions/create_messageTemplate
+    forward_client_headers: true
+  permissions:
+  - role: user
+- name: send_notification
+  definition:
+    kind: synchronous
+    handler: http://api:4000/actions/send_notification
+    forward_client_headers: true
+  permissions:
+  - role: user
+- name: set_awsCredential
+  definition:
+    kind: synchronous
+    handler: http://api:4000/actions/set_awsCredential
+    forward_client_headers: true
+  permissions:
+  - role: user
+- name: trigger_notification
+  definition:
+    kind: synchronous
+    handler: http://api:4000/actions/trigger_notification
+    forward_client_headers: true
+  permissions:
+  - role: user
+custom_types:
+  enums:
+  - name: _notificationVia_enum
+    values:
+    - description: null
+      is_deprecated: null
+      value: app
+    - description: null
+      is_deprecated: null
+      value: email
+  - name: _recipientVia_enum
+    values:
+    - description: null
+      is_deprecated: null
+      value: app
+    - description: null
+      is_deprecated: null
+      value: email
+  input_objects:
+  - name: RecipientInput
+  objects:
+  - name: BooleanResult
+  - name: InsertAwsCredentialOutput
+  - name: SetAwscredentialOutput
+  - name: SendNotificationWithNewTemplateOutput
+  - name: SendNotificationOutput
+  - name: CreateMessagetemplateOutput
+  - name: TriggerOutput
+  scalars:
+  - name: InsertAwsCredentialBigint
+  - name: SetAwscredentialBigint
+  - name: SendNotificationWithNewTemplateJsonb
+  - name: SendNotificationWithNewTemplateBigint
+  - name: SendNotificationJsonb
+  - name: CreateMessagetemplateJsonb
+  - name: TriggerNotificationJsonb

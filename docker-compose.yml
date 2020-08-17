@@ -1,0 +1,77 @@
+version: "3.6"
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - "postgres"
+    volumes:
+      - ./api/src/:/app/src
+    ports:
+      - "4000:4000"
+    command: yarn dev -q
+    restart: always
+    environment:
+      PORT: 4000
+      DEFAULT_ROLE: "user"
+      PG_CONNECTION_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      JWT_SECRET: rufnBhGx5foe7y9SqtHMHEuLN8amUX3VQVJWDYDWQN7yBZm2DRpZqrCmfV2ehQnLgf2KB7GEKGfEU5KiShG7xqTpYUiAdFCoro5jZqsWpDEAXhnBKiweBZHpv3nUw63Y
+      HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      PG_SECRET_DATA_KEY: a_very_secret_key!
+      REDIS_URL: redis://:password123@redis:6379/0
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+
+  graphql-engine:
+    image: hasura/graphql-engine:v1.3.0
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+      - postgres
+    restart: always
+    command: sh -c "echo 'Waiting for api server to start'; while ! nc -z api 4000; do echo "."; sleep 1; done; graphql-engine serve"
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # set to "false" to disable console
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_JWT_SECRET: '{"type": "HS512", "key": "rufnBhGx5foe7y9SqtHMHEuLN8amUX3VQVJWDYDWQN7yBZm2DRpZqrCmfV2ehQnLgf2KB7GEKGfEU5KiShG7xqTpYUiAdFCoro5jZqsWpDEAXhnBKiweBZHpv3nUw63Y"}'
+      HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
+      API_HANDLER: http://api:4000
+      API_REMOTE_SCHEMA: http://api:4000/graphql
+
+  redis:
+    image: "bitnami/redis:5.0.4"
+    environment:
+      - REDIS_PASSWORD=password123
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/bitnami/redis/data
+
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379:0:password123
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+
+volumes:
+  db_data:
+  redis_data:

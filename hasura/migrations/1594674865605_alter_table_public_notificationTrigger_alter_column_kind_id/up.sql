@@ -1,0 +1,1 @@
+ALTER TABLE "public"."notificationTrigger" ALTER COLUMN "kind_id" DROP NOT NULL;

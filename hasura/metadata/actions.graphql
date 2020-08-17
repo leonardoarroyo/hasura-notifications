@@ -1,0 +1,112 @@
+type Mutation {
+  create_messageTemplate (
+    via: _notificationVia_enum
+    version: Int!
+    value: String!
+    locale: String!
+    kind_id: Int!
+    data: CreateMessagetemplateJsonb!
+    recipient_type: String!
+  ): CreateMessagetemplateOutput
+}
+
+
+type Mutation {
+  send_notification (
+    recipient: String!
+    message_template_id: Int!
+    data: SendNotificationJsonb!
+    meta: SendNotificationJsonb!
+  ): SendNotificationOutput
+}
+
+
+type Mutation {
+  set_awsCredential (
+    access_key: String!
+    secret_key: String!
+    region: String!
+  ): SetAwscredentialOutput
+}
+
+
+type Mutation {
+  trigger_notification (
+    kind: String!
+    data: TriggerNotificationJsonb!
+    meta: TriggerNotificationJsonb!
+    recipients: [RecipientInput]!
+  ): TriggerOutput
+}
+
+
+
+
+enum _notificationVia_enum {
+  app
+  email
+}
+
+enum _recipientVia_enum {
+  app
+  email
+}
+
+input RecipientInput {
+  via : _recipientVia_enum!
+  recipient : String!
+  type : String
+}
+
+type BooleanResult {
+  result : Boolean!
+}
+
+type InsertAwsCredentialOutput {
+  affected_rows : Int!
+}
+
+type SetAwscredentialOutput {
+  affected_rows : Int!
+}
+
+type SendNotificationWithNewTemplateOutput {
+  affected_rows : Int!
+}
+
+type SendNotificationOutput {
+  affected_rows : Int!
+}
+
+type CreateMessagetemplateOutput {
+  affected_rows : Int!
+  id : Int
+  locale : String
+  value : String
+  version : Int
+  via : String
+  data : String
+  created_at : String
+  updated_at : String
+  recipient_type : String
+}
+
+type TriggerOutput {
+  triggered_count : Int!
+  errors : [String]!
+}
+
+scalar InsertAwsCredentialBigint
+
+scalar SetAwscredentialBigint
+
+scalar SendNotificationWithNewTemplateJsonb
+
+scalar SendNotificationWithNewTemplateBigint
+
+scalar SendNotificationJsonb
+
+scalar CreateMessagetemplateJsonb
+
+scalar TriggerNotificationJsonb
+

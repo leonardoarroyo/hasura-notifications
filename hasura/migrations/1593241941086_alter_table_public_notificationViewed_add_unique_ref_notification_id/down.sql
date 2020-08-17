@@ -1,0 +1,1 @@
+alter table "public"."notificationViewed" drop constraint "notificationViewed_ref_notification_id_key";

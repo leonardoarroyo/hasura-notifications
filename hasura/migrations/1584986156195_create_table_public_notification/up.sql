@@ -1,0 +1,1 @@
+CREATE TABLE "public"."notification"("id" bigserial NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "via" varchar NOT NULL, "recipient" varchar NOT NULL, "data" jsonb, "meta" jsonb, "message_template_id" bigint NOT NULL, "app_id" bigint NOT NULL, "kind_id" bigint NOT NULL, "scheduled_to" timestamptz NOT NULL, PRIMARY KEY ("id") );

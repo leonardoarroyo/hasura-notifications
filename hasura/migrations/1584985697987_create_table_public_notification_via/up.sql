@@ -1,0 +1,1 @@
+CREATE TABLE "public"."notification_via"("via" varchar NOT NULL, PRIMARY KEY ("via") , UNIQUE ("via"));

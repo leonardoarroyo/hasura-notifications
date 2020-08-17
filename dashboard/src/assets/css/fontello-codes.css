@@ -1,0 +1,4 @@
+
+.icon-mail:before { content: '\e800'; } /* '' */
+.icon-mobile:before { content: '\e801'; } /* '' */
+.icon-window-restore:before { content: '\f2d2'; } /* '' */
