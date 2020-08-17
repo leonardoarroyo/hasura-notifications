@@ -4,10 +4,10 @@ EXPOSE 4000
 WORKDIR /app
 
 ENV HASURA_URL="http://hasura.web.1:8080/v1/graphql"
-COPY package.json .
-COPY yarn.lock .
+COPY ./api/package.json .
+COPY ./yarn.lock .
 RUN yarn
-COPY . .
+COPY ./api .
 
 RUN ["yarn", "build"]
 CMD ["yarn", "start"]
