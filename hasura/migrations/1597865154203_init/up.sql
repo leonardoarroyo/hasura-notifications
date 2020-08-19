@@ -200,3 +200,5 @@ ALTER TABLE ONLY public.notification
     ADD CONSTRAINT via_fkey FOREIGN KEY (via) REFERENCES public."notificationVia"(via);
 ALTER TABLE ONLY public."messageTemplate"
     ADD CONSTRAINT via_fkey FOREIGN KEY (via) REFERENCES public."notificationVia"(via);
+
+INSERT INTO public."notificationVia" (via) VALUES ("app", "email");
