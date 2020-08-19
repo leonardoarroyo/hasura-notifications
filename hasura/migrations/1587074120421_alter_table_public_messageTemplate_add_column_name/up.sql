@@ -1,1 +1,0 @@
-ALTER TABLE "public"."messageTemplate" ADD COLUMN "name" varchar NULL;

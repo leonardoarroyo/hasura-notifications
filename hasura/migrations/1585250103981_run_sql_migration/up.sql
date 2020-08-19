@@ -1,1 +1,0 @@
-INSERT INTO "notificationVia" (via) VALUES ('app'), ('email');

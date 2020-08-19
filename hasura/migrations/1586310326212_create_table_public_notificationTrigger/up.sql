@@ -1,1 +1,0 @@
-CREATE TABLE "public"."notificationTrigger"("id" bigserial NOT NULL, "app_id" bigint NOT NULL, "kind_id" bigint NOT NULL, "message_template_id" bigint NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("id") );

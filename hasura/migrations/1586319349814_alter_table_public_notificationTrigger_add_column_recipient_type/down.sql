@@ -1,1 +1,0 @@
-ALTER TABLE "public"."notificationTrigger" DROP COLUMN "recipient_type";

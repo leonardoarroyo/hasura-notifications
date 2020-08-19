@@ -1,1 +1,0 @@
-alter table "public"."awsCredential" add constraint "awsCredential_app_id_key" unique ("app_id");

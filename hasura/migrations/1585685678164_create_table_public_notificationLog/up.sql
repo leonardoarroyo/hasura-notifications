@@ -1,1 +1,0 @@
-CREATE TABLE "public"."notificationLog"("id" bigserial NOT NULL, "notification_id" bigint, "created_at" timestamptz NOT NULL DEFAULT now(), "status" varchar NOT NULL, "data" jsonb, PRIMARY KEY ("id") , FOREIGN KEY ("notification_id") REFERENCES "public"."notification"("id") ON UPDATE set null ON DELETE set null, UNIQUE ("id"));

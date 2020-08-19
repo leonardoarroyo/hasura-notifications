@@ -1,1 +1,0 @@
-ALTER TABLE "public"."app" ADD COLUMN "name" varchar NULL;

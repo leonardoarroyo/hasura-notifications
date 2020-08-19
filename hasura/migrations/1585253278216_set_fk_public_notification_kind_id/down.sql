@@ -1,1 +1,0 @@
-alter table "public"."notification" drop constraint "notification_kind_id_fkey";

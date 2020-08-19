@@ -1,1 +1,0 @@
-ALTER TABLE "public"."messageTemplate" DROP COLUMN "recipient_type";

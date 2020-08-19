@@ -1,1 +1,0 @@
-CREATE TABLE "public"."notificationViewed"("id" bigserial NOT NULL, "viewed_at" timestamptz NOT NULL DEFAULT now(), "ref" varchar NOT NULL, "notification_id" integer NOT NULL, PRIMARY KEY ("id") , UNIQUE ("id"));

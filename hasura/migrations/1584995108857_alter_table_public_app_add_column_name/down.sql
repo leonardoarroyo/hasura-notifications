@@ -1,1 +1,0 @@
-ALTER TABLE "public"."app" DROP COLUMN "name";

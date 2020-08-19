@@ -1,1 +1,0 @@
-alter table "public"."messageTemplate" drop constraint "messageTemplate_via_kind_id_version_key";

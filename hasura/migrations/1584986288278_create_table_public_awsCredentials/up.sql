@@ -1,1 +1,0 @@
-CREATE TABLE "public"."awsCredentials"("id" bigserial NOT NULL, "app_id" bigint NOT NULL, "access_key" varchar NOT NULL, "secret_key" varchar NOT NULL, "region" varchar NOT NULL, PRIMARY KEY ("id") );

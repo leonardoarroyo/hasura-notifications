@@ -1,1 +1,0 @@
-alter table "public"."notificationTrigger" drop constraint "notificationTrigger_message_template_id_fkey";

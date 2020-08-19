@@ -1,1 +1,0 @@
-ALTER TABLE "public"."messageTemplate" ALTER COLUMN "recipient_type" TYPE varchar;ALTER TABLE "public"."messageTemplate" ALTER COLUMN "recipient_type" SET NOT NULL;
