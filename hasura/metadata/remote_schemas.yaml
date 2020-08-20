@@ -1,0 +1,5 @@
+- name: api-extras
+  definition:
+    url_from_env: API_SCHEMA_ENDPOINT
+    timeout_seconds: 60
+    forward_client_headers: true

@@ -48,7 +48,7 @@ services:
       HASURA_GRAPHQL_JWT_SECRET: '{"type": "HS512", "key": "rufnBhGx5foe7y9SqtHMHEuLN8amUX3VQVJWDYDWQN7yBZm2DRpZqrCmfV2ehQnLgf2KB7GEKGfEU5KiShG7xqTpYUiAdFCoro5jZqsWpDEAXhnBKiweBZHpv3nUw63Y"}'
       HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
-      API_HANDLER: http://api:4000
+      API_SCHEMA_ENDPOINT: http://api:4000
       API_REMOTE_SCHEMA: http://api:4000/graphql
 
   redis:
