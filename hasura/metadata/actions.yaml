@@ -2,28 +2,28 @@ actions:
 - name: create_messageTemplate
   definition:
     kind: synchronous
-    handler: http://api:4000/actions/create_messageTemplate
+    handler: "{{API_BASE}}/actions/create_messageTemplate"
     forward_client_headers: true
   permissions:
   - role: user
 - name: send_notification
   definition:
     kind: synchronous
-    handler: http://api:4000/actions/send_notification
+    handler: "{{API_BASE}}/actions/send_notification"
     forward_client_headers: true
   permissions:
   - role: user
 - name: set_awsCredential
   definition:
     kind: synchronous
-    handler: http://api:4000/actions/set_awsCredential
+    handler: "{{API_BASE}}/actions/set_awsCredential"
     forward_client_headers: true
   permissions:
   - role: user
 - name: trigger_notification
   definition:
     kind: synchronous
-    handler: http://api:4000/actions/trigger_notification
+    handler: "{{API_BASE}}/actions/trigger_notification"
     forward_client_headers: true
   permissions:
   - role: user
