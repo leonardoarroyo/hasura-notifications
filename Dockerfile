@@ -2,7 +2,7 @@
 # O Dokku exige que há um Dockerfile na pasta base do projeto
 # para identificar que o deploy é de Dockerfile.
 
-FROM hasura/graphql-engine:v1.3.0.cli-migrations-v2
+FROM hasura/graphql-engine:v1.3.1.cli-migrations-v2
 
 ENV PORT 8080
 EXPOSE 8080
