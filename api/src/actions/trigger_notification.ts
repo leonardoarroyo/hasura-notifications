@@ -3,6 +3,9 @@ import { Headers, HeadersInit } from 'node-fetch'
 import { Request, Response } from 'express'
 import { isInvalidEmail } from 'lib/validationUtils'
 import * as R from 'ramda'
+import {
+  HASURA_URL
+} from 'app/constants'
 
 type recipientType = string | null
 
@@ -130,7 +133,7 @@ const execute = async (
 ) => {
   const requestHeaders: HeadersInit = new Headers(headers)
 
-  const fetchResponse = await fetch('http://graphql-engine:8080/v1/graphql', {
+  const fetchResponse = await fetch(HASURA_URL, {
     method: 'POST',
     headers: requestHeaders,
     body: JSON.stringify({

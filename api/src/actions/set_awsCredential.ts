@@ -3,7 +3,10 @@ import R from 'ramda'
 import { Headers, HeadersInit } from 'node-fetch'
 import { encrypt } from 'lib/crypt'
 import { Request, Response } from 'express'
-import { HASURA_GRAPHQL_ADMIN_SECRET } from 'app/constants'
+import {
+  HASURA_GRAPHQL_ADMIN_SECRET,
+  HASURA_URL
+} from 'app/constants'
 
 const HASURA_OPERATION = `
 mutation set_awsCredential($access_key: String!, $secret_key: String!, $region: String, $app_id: bigint!) {
@@ -38,7 +41,7 @@ const execute = async (variables: QueryVariables) => {
   requestHeaders.set('x-hasura-admin-secret', HASURA_GRAPHQL_ADMIN_SECRET)
 
   const fetchResponse = await fetch(
-    "http://graphql-engine:8080/v1/graphql",
+    HASURA_URL,
     {
       method: 'POST',
       headers: requestHeaders,

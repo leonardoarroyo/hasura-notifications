@@ -3,6 +3,9 @@ import { Headers, HeadersInit } from 'node-fetch'
 import { Request, Response } from 'express'
 import { isViaEmail, parseJson, isValidSender, invalidJson } from 'lib/validationUtils'
 import * as R from 'ramda'
+import {
+  HASURA_URL
+} from 'app/constants'
 
 const invalidEmailSender = R.ifElse(
   isViaEmail,
@@ -56,7 +59,7 @@ const execute = async (variables: object, { authorization }: { authorization: st
   const requestHeaders: HeadersInit = new Headers({ authorization });
 
   const fetchResponse = await fetch(
-    "http://graphql-engine:8080/v1/graphql",
+    HASURA_URL,
     {
       method: 'POST',
       headers: requestHeaders,
