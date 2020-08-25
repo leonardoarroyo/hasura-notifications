@@ -10,7 +10,7 @@ EXPOSE 8080
 # Enable the console
 ENV HASURA_GRAPHQL_MIGRATIONS_DIR=/migrations
 ENV HASURA_GRAPHQL_METADATA_DIR=/metadata
-ENV HASURA_GRAPHQL_CORS_DOMAIN="https://atados.com.br, https://*.atados.com.br, https://ovp-client-atados-*.vercel.app, http://localhost:3001/"
+ENV HASURA_GRAPHQL_CORS_DOMAIN="https://atados.com.br, https://*.atados.com.br, https://ovp-client-atados-*.vercel.app, http://localhost:3000/, http://localhost:3001/"
 ENV HASURA_GRAPHQL_DEV_MODE=false
 ENV HASURA_GRAPHQL_UNAUTHORIZED_ROLE="anonymous"
 
