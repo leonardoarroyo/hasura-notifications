@@ -111,6 +111,7 @@
       - created_at
       - data
       - id
+      - kind_id
       - message_template_id
       - meta
       - recipient
@@ -165,6 +166,14 @@
       columns:
       - value
   select_permissions:
+  - role: externalUser
+    permission:
+      columns:
+      - id
+      - value
+      filter:
+        app_id:
+          _eq: X-Hasura-App-Pk
   - role: user
     permission:
       columns:
